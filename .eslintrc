@@ -1,7 +1,7 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2022": true
     },
     "extends": [
         "airbnb-base",
@@ -11,7 +11,7 @@
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 2021,
+        "ecmaVersion": 2022,
         "sourceType": "module"
     },
     "settings": {
@@ -27,6 +27,7 @@
     ],
     "rules": {
       "import/prefer-default-export": "off",
-      "import/extensions": ["error", { "ts": "never", "js": "never" }]
+      "import/extensions": ["error", { "ts": "always", "js": "always" }],
+      "import/no-unresolved": "off"
     }
 }

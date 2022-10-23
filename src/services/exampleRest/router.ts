@@ -1,11 +1,11 @@
 import express from 'express';
-import { EXAMPLE_RESULTS } from './constants';
+import { EXAMPLE_RESULTS } from './constants.js';
 import {
   addExampleItem,
   getAllExampleItems,
   showExampleItem,
   updateExampleItem,
-} from './persistence';
+} from './persistence.js';
 
 /**
  * Router for /examples

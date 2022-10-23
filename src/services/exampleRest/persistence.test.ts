@@ -1,5 +1,5 @@
-import { getAllExampleItems } from './persistence';
-import { EXAMPLE_RESULTS } from './constants';
+import { getAllExampleItems } from './persistence.js';
+import { EXAMPLE_RESULTS } from './constants.js';
 
 describe('services :: exampleRest :: persistence', () => {
   describe('unit :: #getAllExampleItems', () => {

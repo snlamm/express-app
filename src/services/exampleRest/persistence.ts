@@ -1,4 +1,4 @@
-import { EXAMPLE_RESULTS } from './constants';
+import { EXAMPLE_RESULTS } from './constants.js';
 
 export const getAllExampleItems = (): Array<string> => {
   return EXAMPLE_RESULTS;

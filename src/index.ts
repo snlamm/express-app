@@ -1,5 +1,5 @@
 import express from 'express';
-import { getRouter as getExamplesRouter } from './services/exampleRest/router';
+import { getRouter as getExamplesRouter } from './services/exampleRest/router.js';
 
 const app = express();
 const port = 3002;
