@@ -1,16 +1,22 @@
-import express from 'express';
+import Fastify from 'fastify';
 import { getRouter as getExamplesRouter } from './services/exampleRest/router.js';
 
-const app = express();
+const fastify = Fastify({
+  logger: true,
+});
 const port = 3002;
 
-// use JSON to pass data around
-app.use(express.json());
+fastify.register(getExamplesRouter, { prefix: '/examples' });
 
-app.use('/examples', getExamplesRouter());
+fastify.get('/ping', () => 'pong');
 
-app.get('/ping', (req, res) => res.json('pong'));
+const start = async () => {
+  try {
+    await fastify.listen({ port });
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+};
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+start();

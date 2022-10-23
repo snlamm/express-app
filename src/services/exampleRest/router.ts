@@ -1,4 +1,4 @@
-import express from 'express';
+import { FastifyInstance } from 'fastify';
 import { EXAMPLE_RESULTS } from './constants.js';
 import {
   addExampleItem,
@@ -8,48 +8,51 @@ import {
 } from './persistence.js';
 
 /**
- * Router for /examples
+ * Routes for /examples
  */
-export const getRouter = (): express.Router => {
-  const router = express.Router();
-
-  router.get('/', (req, res) => {
+export const getRouter = async (fastify: FastifyInstance) => {
+  fastify.get('/', () => {
     const allItems = getAllExampleItems();
 
-    res.json({
+    return {
       results: allItems,
-    });
+    };
   });
 
-  router.get('/:index', (req, res) => {
-    const index = Number(req.body.index);
+  fastify.get<{
+    Params: { index: string };
+  }>('/:index', (req) => {
+    const index = Number(req.params.index);
     const result = showExampleItem({ index });
 
-    res.json({
+    return {
       result,
-    });
+    };
   });
 
-  router.post('/', (req, res) => {
+  fastify.post<{
+    Body: { item: number };
+  }>('/', (req) => {
     const newItem = req.body.item;
     addExampleItem({ newItem });
 
-    res.json({
+    return {
       newItemIndex: EXAMPLE_RESULTS.length - 1,
-    });
+    };
   });
 
-  router.put('/:index', (req, res) => {
-    const newItem = req.body.item;
-    const index = Number(req.body.index);
+  fastify.put<{
+    Params: { index: string };
+    Body: { item: number };
+  }>('/:index', (req, reply) => {
+    const newItem = req.body.item.toString();
+    const index = Number(req.params.index);
 
     updateExampleItem({
       newItem,
       index,
     });
 
-    res.sendStatus(200);
+    reply.status(204);
   });
-
-  return router;
 };
